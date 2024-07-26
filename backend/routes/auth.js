@@ -1,7 +1,7 @@
 // backend/routes/auth.js
 const express = require('express');
 const router = express.Router();
-const User = require('../models/User');
+const User = require('../models/user');
 
 // Registration Route
 router.post('/register', async (req, res) => {
@@ -62,6 +62,36 @@ router.post('/login', async (req, res) => {
     res.status(200).json({ message: 'Login successful' });
   } catch (error) {
     console.error('Error during login:', error); // Log error
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// User Profile Route
+router.get('/profile', async (req, res) => {
+  const { username } = req.body;
+
+  console.log('Received profile request:', req.body); // Log request body
+
+  if (!username) {
+    console.error('Missing username'); // Log error
+    return res.status(400).json({ message: 'Username is required' });
+  }
+
+  try {
+    // Find the user by username
+    const user = await User.findOne({ username });
+    if (!user) {
+      console.error('User not found'); // Log error
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    console.log('Profile retrieved successfully:', user); // Log success
+    res.status(200).json({ 
+      username: user.username,
+      // Add other fields you want to return here
+    });
+  } catch (error) {
+    console.error('Error retrieving profile:', error); // Log error
     res.status(500).json({ message: 'Server error' });
   }
 });
