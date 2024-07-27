@@ -1,8 +1,7 @@
 /* Welcome.css */
 
 body {
-  background: rgb(247,253,255);
-background: linear-gradient(90deg, rgba(247,253,255,1) 0%, rgba(255,245,245,1) 35%, rgba(255,245,245,1) 100%);
+  background: rgb(255, 255, 255);
 }
 .welcome-container {
   display: flex;
@@ -229,26 +228,27 @@ button:hover {
 .input-center {
   border: 1px solid black;
   width: 95%;
+  margin: 0 auto;
+  border-radius: 6px;
 }
+
 .password-gen input {
   width: 90%;
   height: 35px;
   border: none !important;
   background-color: transparent;
-
+  
 }
 .footer-bottom {
   position: absolute;
   bottom: 0px;
-  background-color: #ffffff;
-  width: 100%;
+  background-color: #f9f9f9;
+  width: 95%;
   height: 50px;
   border-top-left-radius: 26px;
   border-top-right-radius: 26px;
-  border: 2px solid black;
-  border-left: 0;
-  border-right: 0;
-  border-bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
 }
 .plusbutton-footer {
   margin-bottom: 120px;
@@ -273,4 +273,91 @@ button:hover {
 .content-footer .fauser {
   font-size: 25px;
   padding-right: 20px;
+}
+.company-list .display-list {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 10px;
+  padding-right: 10px;
+  border: 1px solid rgb(207, 207, 207);
+  margin-top: 10px;
+  margin-bottom: 10px;
+  height: 50px;
+  margin-left: 20px;
+  margin-right: 20px;
+  align-items: center;
+  border-radius: 6px;
+}
+.company-list .display-list .facopy {
+  font-size: 25px;
+  color: #FF6464;
+}
+.company-list .display-list li {
+  font-weight: bold;
+}
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  width: 300px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.modal-item {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.modal-item:hover {
+  background-color: #f1f1f1;
+}
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  background-color: #000000;
+  color: white;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  animation: slide-in 0.5s ease-out, fade-out 0.5s ease-out 2.5s;
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
