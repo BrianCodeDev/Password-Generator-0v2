@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import '../App.css'; // Import the CSS file
+import plusbutton from '../assets/images/plusbutton.svg'; // Import the image
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMagnifyingGlass, faHouse, faUser } from '@fortawesome/free-solid-svg-icons';
 
 const generatePassword = (length) => {
   const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+[]{}|;:,.<>?';
@@ -15,20 +18,23 @@ const PasswordGenerator = () => {
   const [password, setPassword] = useState('');
   const [passwordsList, setPasswordsList] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(true);
-  const navigate = useNavigate();
 
   useEffect(() => {
+    // Check authentication status
     const token = localStorage.getItem('token');
     if (!token) {
       setIsAuthenticated(false);
     } else {
       setIsAuthenticated(true);
     }
+
+    // Retrieve stored passwords list from localStorage
     const storedPasswords = JSON.parse(localStorage.getItem('passwordsList')) || [];
     setPasswordsList(storedPasswords);
   }, []);
 
   useEffect(() => {
+    // Store passwords list in localStorage whenever it changes
     localStorage.setItem('passwordsList', JSON.stringify(passwordsList));
   }, [passwordsList]);
 
@@ -36,38 +42,42 @@ const PasswordGenerator = () => {
     if (isAuthenticated) {
       const newPassword = generatePassword(12);
       setPassword(newPassword);
-      setPasswordsList((prevList) => [newPassword, ...prevList]);
+      setPasswordsList((prevList) => [newPassword, ...prevList]); // Update passwords list
     }
   };
 
   return (
-    <div>
-      <h1>Password Generator</h1>
-      {!isAuthenticated && (
-        <div>
-          <h2>Session Expired</h2>
-          <p>Your session has expired or you are not authorized. Please log in again.</p>
+    <div className="password-gen">
+      <div className="box-container">
+        <div className="box">
+          <div><h1>5</h1></div>
+          <div><h2>Passwords
+          Stored</h2></div>
         </div>
-      )}
-      <button onClick={handleGeneratePassword} disabled={!isAuthenticated}>
-        Generate Password
-      </button>
-      {password && (
+        <div className="box"></div>
+      </div>
+      <div className={'input-center'}>
+      <FontAwesomeIcon icon={faMagnifyingGlass} />
+      <input className={'search-box'} placeholder={'Search Websites...'}/>
+      </div>
+
+      <div className={'footer-bottom'}>
+      <footer>
+        <div className='content-footer'>
         <div>
-          <h2>Generated Password:</h2>
-          <p>{password}</p>
+        <FontAwesomeIcon icon={faHouse} className='fahouse'/>
         </div>
-      )}
-      {passwordsList.length > 0 && (
+        <div className={'plusbutton-footer'}>
+          <a href="#">
+        <img src={plusbutton} className="plusbutton" alt="plusbutton" style={{ width: '60px', height: 'auto' }} />
+        </a>
+        </div>
         <div>
-          <h2>Generated Passwords History:</h2>
-          <ul>
-            {passwordsList.map((pwd, index) => (
-              <li key={index}>{pwd}</li>
-            ))}
-          </ul>
+        <FontAwesomeIcon icon={faUser} className='fauser'/>
         </div>
-      )}
+        </div>
+      </footer>
+      </div>
     </div>
   );
 };
